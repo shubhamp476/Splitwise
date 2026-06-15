@@ -1,0 +1,115 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum MembershipStatus {
+  ACTIVE
+  LEFT
+}
+
+enum SplitType {
+  EQUAL
+  EXACT
+  PERCENTAGE
+}
+
+enum Currency {
+  INR
+  USD
+}
+
+model User {
+  id        String @id @default(cuid())
+  name      String
+  email     String @unique
+  password  String
+
+  memberships Membership[]
+  paidExpenses Expense[] @relation("ExpensePaidBy")
+  expenseSplits ExpenseSplit[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Group {
+  id          String @id @default(cuid())
+  name        String
+
+  memberships Membership[]
+  expenses    Expense[]
+
+  createdAt DateTime @default(now())
+}
+
+model Membership {
+  id        String @id @default(cuid())
+
+  userId    String
+  groupId   String
+
+  joinedAt  DateTime
+  leftAt    DateTime?
+
+  status    MembershipStatus
+
+  user      User @relation(fields: [userId], references: [id])
+  group     Group @relation(fields: [groupId], references: [id])
+
+  @@unique([userId, groupId])
+}
+
+model Expense {
+  id          String @id @default(cuid())
+
+  description String
+  amount      Float
+
+  currency    Currency @default(INR)
+
+  splitType   SplitType
+
+  expenseDate DateTime
+
+  groupId     String
+  paidById    String
+
+  group       Group @relation(fields: [groupId], references: [id])
+
+  paidBy User @relation("ExpensePaidBy", fields: [paidById], references: [id])
+
+  splits      ExpenseSplit[]
+
+  isSettlement Boolean @default(false)
+
+  createdAt DateTime @default(now())
+}
+
+model ExpenseSplit {
+  id          String @id @default(cuid())
+
+  expenseId   String
+  userId      String
+
+  amount      Float
+
+  expense     Expense @relation(fields: [expenseId], references: [id])
+
+  user        User @relation(fields: [userId], references: [id])
+}
+
+model ImportLog {
+  id        String @id @default(cuid())
+
+  rowNumber Int
+
+  issue     String
+
+  action    String
+
+  createdAt DateTime @default(now())
+}
