@@ -1,36 +1,85 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Spreetail Expense App: Splitwise Clone
+
+This project is a fully functional, database-backed Splitwise clone built as a Next.js web application. It includes user credentials authentication, shared groups, advanced bill splitting (equal, exact, percentage, share), a transaction-minimizing debt settlement algorithm, real-time chat, and CSV transaction logs import with anomaly auditing.
+
+---
+
+## Features
+
+1. **Credentials Authentication**: Log in or sign up to secure your data.
+2. **Dashboard Summary**: Monitor total net balance, what you owe, and what you are owed.
+3. **Groups**: Create groups, invite users by email, and remove members (zero-balance checked).
+4. **Expense Splitting**:
+   - **Equal**: Split evenly among all members.
+   - **Exact**: Enter exact currency amounts for each member.
+   - **Percentage**: Split using percentage values.
+   - **Share**: Split using weighted share units.
+5. **Debt Simplification**: Calculate minimal payments needed to settle up.
+6. **Expense Chat**: Discuss billing issues inside the app in real-time.
+7. **CSV Import & Anomalies**: Upload `expenses_export.csv` to find anomalies, clean formats, and import transactions.
+
+---
+
+## Tech Stack
+
+- **Core**: Next.js v16.2.9 (App Router) + React v19.2.4
+- **Database**: PostgreSQL (hosted on Neon) + Prisma v7.8.0 ORM
+- **Driver Adapter**: `@prisma/adapter-pg` + `pg` connection pool
+- **Styling**: Tailwind CSS v4 + Lucide Icons + React Hot Toast
+- **Security & Session**: NextAuth.js v4.24.14 + BcryptJS
+
+---
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Ensure you have **Node.js v18+** installed.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Setup Instructions
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. **Clone the project & Navigate to the folder**:
+   ```bash
+   cd spreetail-expense-app
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+2. **Install Dependencies**:
+   ```bash
+   npm install
+   ```
 
-## Learn More
+3. **Database Migration**:
+   Apply migrations to synchronize your Neon PostgreSQL schema:
+   ```bash
+   npx prisma migrate dev
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+4. **Seed Default Users**:
+   Populate the database with default users (Aisha, Rohan, Priya, Meera, Sam):
+   ```bash
+   npx tsx prisma/seed.ts
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+5. **Start the Development Server**:
+   ```bash
+   npm run dev
+   ```
+   Open [http://localhost:3000](http://localhost:3000) (or the URL shown in the terminal) in your browser.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## Demo Accounts
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+You can test immediately using any of these seeded users:
+- **Email**: `aisha@example.com` or `rohan@example.com` or `priya@example.com`
+- **Password**: `password123`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## AI Collaboration
+
+This application was developed in partnership with **Antigravity (Google DeepMind)**. 
+
+### Documentation Deliverables
+- **`AI_CONTEXT.md`**: Full technical architecture, schema details, API designs, and tradeoffs.
+- **`BUILD_PLAN.md`**: Studied Splitwise behavior, product assumptions, and engineering decisions.

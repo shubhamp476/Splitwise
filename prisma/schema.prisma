@@ -1,5 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
+  provider   = "prisma-client-js"
+  engineType = "library"
 }
 
 datasource db {
@@ -15,6 +16,7 @@ enum SplitType {
   EQUAL
   EXACT
   PERCENTAGE
+  SHARE
 }
 
 enum Currency {
@@ -33,6 +35,7 @@ model User {
   expenseSplits ExpenseSplit[]
   accounts Account[]
   sessions Session[]
+  messages Message[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -85,6 +88,7 @@ model Expense {
   paidBy User @relation("ExpensePaidBy", fields: [paidById], references: [id])
 
   splits      ExpenseSplit[]
+  messages    Message[]
 
   isSettlement Boolean @default(false)
 
@@ -150,4 +154,15 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  expenseId String
+  userId    String
+  content   String
+  createdAt DateTime @default(now())
+
+  expense Expense @relation(fields: [expenseId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
