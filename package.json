@@ -9,9 +9,22 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.4.0",
+    "@prisma/client": "^7.8.0",
+    "@tanstack/react-table": "^8.21.3",
+    "bcryptjs": "^3.0.3",
+    "csv-parser": "^3.2.1",
+    "date-fns": "^4.4.0",
+    "lucide-react": "^1.18.0",
     "next": "16.2.9",
+    "next-auth": "^4.24.14",
+    "papaparse": "^5.5.3",
+    "prisma": "^7.8.0",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "react-hook-form": "^7.79.0",
+    "react-hot-toast": "^2.6.0",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
@@ -21,6 +34,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.9",
     "tailwindcss": "^4",
+    "tsx": "^4.22.4",
     "typescript": "^5"
   }
 }
