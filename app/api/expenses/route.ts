@@ -19,7 +19,7 @@ export async function GET() {
       select: { groupId: true },
     });
 
-    const groupIds = memberships.map((m) => m.groupId);
+    const groupIds = memberships.map((m: { groupId: string }) => m.groupId);
 
     if (groupIds.length === 0) {
       return NextResponse.json([]);
