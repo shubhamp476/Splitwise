@@ -83,3 +83,7 @@ This application was developed in partnership with **Antigravity (Google DeepMin
 ### Documentation Deliverables
 - **`AI_CONTEXT.md`**: Full technical architecture, schema details, API designs, and tradeoffs.
 - **`BUILD_PLAN.md`**: Studied Splitwise behavior, product assumptions, and engineering decisions.
+- **`SCOPE.md`**: Targets, functional requirements, in-scope features, and out-of-scope parameters.
+- **`DECISIONS.md`**: Core tech selections, database driver configurations, and architectural trade-offs.
+- **`AI_USAGE.md`**: AI pair-programming roles, phase-by-phase contributions, and build troubleshooting steps.
+
